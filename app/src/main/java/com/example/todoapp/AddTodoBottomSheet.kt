@@ -69,16 +69,23 @@ class AddTodoBottomSheet:BottomSheetDialogFragment() {
 
     }
 
+
+
      fun insertToDo(title: String, details: String) {
             val todo= Todo(
                 name = title,
                 details = details,                 // calendar.time it get all date from calender
-                date = calendar.time)             //applicationContext that the context of full app
+                date = calendar.clearTime().time)             //applicationContext that the context of full app
          MyDataBase.getInstance(requireContext().applicationContext).todoDao().addTodo(todo)
          Toast.makeText(requireContext(),"todo added",Toast.LENGTH_LONG).show()
-
+         // i want to call back to activity to notify insertion
+            onTodoAddedListener?.onTodoAdded() // tell him you are done
          //i should close bottomSheet
          dismiss()
+    }
+    var onTodoAddedListener:OnTodoAddedListener?=null
+    interface OnTodoAddedListener{
+        fun onTodoAdded()
     }
 
     // this fun check if the form is valid or not and if it is valid it will return true and if not it will return false and error message

@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.todoapp.database.model.Todo
+import java.util.Date
 
 @Dao
 interface TodoDao {
@@ -18,5 +19,10 @@ interface TodoDao {
 
     @Query("select * from Todo")
     fun getAllTodos():List<Todo>
+
+    //select todo based on date i choose on calender
+    //date is parameter of function getTodosByDate
+    @Query("select * from Todo where date=:date")
+    fun getTodosByDate(date: Date):List<Todo>
 
 }

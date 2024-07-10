@@ -12,6 +12,8 @@ import com.google.android.material.navigation.NavigationBarView
 class MainActivity : AppCompatActivity() {
     lateinit var bottomNavigation: BottomNavigationView
     lateinit var addButton: FloatingActionButton
+    val todolistFragment=TodoListFragment()
+    val settingsFragment=SettingsFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,10 +33,10 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation.setOnItemSelectedListener(
            NavigationBarView.OnItemSelectedListener{item ->
                if (item.itemId==R.id.navigation_list){
-                   pushFragment(TodoListFragment())
+                   pushFragment(todolistFragment) // instead of every time push fragment  and create new obj i just call it
                }
                if (item.itemId==R.id.navigation_settings){
-                   pushFragment(SettingsFragment())
+                   pushFragment(settingsFragment)
                }
 
                return@OnItemSelectedListener true
@@ -48,7 +50,17 @@ class MainActivity : AppCompatActivity() {
     private fun showAddBottomSheet() {
        val addBottomSheet=AddTodoBottomSheet()
         addBottomSheet.show(supportFragmentManager,"")
-    }
+        addBottomSheet.onTodoAddedListener=object :AddTodoBottomSheet.OnTodoAddedListener{
+            override fun onTodoAdded() {
+                // i want to refresh the list from DB inside ListFragment
+                // if fun(list fun) is visible call it only
+                if (todolistFragment.isVisible){
+                    todolistFragment.getTodoListFromDB()
+                }
+
+            }
+            }
+        }
 
     fun pushFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction()
