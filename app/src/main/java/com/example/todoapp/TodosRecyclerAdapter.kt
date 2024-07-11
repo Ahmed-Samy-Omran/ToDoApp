@@ -17,6 +17,7 @@ class TodosRecyclerAdapter(var items:MutableList<Todo>?): RecyclerView.Adapter<T
         val title: TextView =itemView.findViewById(R.id.title)
         val describition: TextView =itemView.findViewById(R.id.describition)
         val markAsDone: ImageView =itemView.findViewById(R.id.mark_as_done)
+        val delete : ImageView =itemView.findViewById(R.id.delete_icon)
 
     }
 
@@ -39,5 +40,17 @@ class TodosRecyclerAdapter(var items:MutableList<Todo>?): RecyclerView.Adapter<T
         holder.title.setText(item.name)
         holder.describition.setText(item.details)
 
+
+        holder.delete.setOnClickListener {
+            onItemClickedToUpdated?.OnItemClickedToBeDeleted(position,item)
+        }
     }
+
+
+    var onItemClickedToUpdated:OnItemClicked?=null
+    interface OnItemClicked{
+
+        fun OnItemClickedToBeDeleted(position: Int,todo: Todo)
+    }
+
 }

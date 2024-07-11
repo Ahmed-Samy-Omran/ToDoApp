@@ -1,5 +1,7 @@
 package com.example.todoapp
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -23,10 +25,18 @@ class MainActivity : AppCompatActivity() {
         addButton=findViewById(R.id.add)
         addButton.setBackgroundResource(R.drawable.circle_floating_btn)
         addButton.setOnClickListener {
-//            val intent=Intent(this,UpdateTodoActivity::class.java)
-//            startActivity(intent)
 
+            // Add animation
+            val scaleX = ObjectAnimator.ofFloat(addButton, "scaleX", 1f, 1.2f, 1f)
+            val scaleY = ObjectAnimator.ofFloat(addButton, "scaleY", 1f, 1.2f, 1f)
+            val animatorSet = AnimatorSet()
+            animatorSet.playTogether(scaleX, scaleY)
+            animatorSet.duration = 500
+            animatorSet.start()
+
+            // Call the function to show the bottom sheet
             showAddBottomSheet()
+
 
         }
 

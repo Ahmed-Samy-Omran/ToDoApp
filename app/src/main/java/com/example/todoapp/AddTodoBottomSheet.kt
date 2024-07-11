@@ -1,5 +1,7 @@
 package com.example.todoapp
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -54,11 +56,11 @@ class AddTodoBottomSheet:BottomSheetDialogFragment() {
 
         addTodo.setOnClickListener {
             if (validateForm()){
-               //form is valid and insert Todo item
-                val title=titleLayout.editText?.text.toString()
-                val details=detailsLayout.editText?.text.toString()
-                //now i bring the title and details from editText now i want to insert it to database
-                insertToDo(title,details)
+                // Form is valid and insert Todo item
+                val title = titleLayout.editText?.text.toString()
+                val details = detailsLayout.editText?.text.toString()
+                // Now I bring the title and details from editText, now I want to insert it to database
+                insertToDo(title, details)
 
             }
 

@@ -58,6 +58,9 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
 
+    // swipeLayout
+    implementation("com.github.zerobranch:SwipeLayout:1.3.1")
+
     // Exclude conflicting dependencies
     configurations.all {
         exclude(group = "com.android.support", module = "support-compat")

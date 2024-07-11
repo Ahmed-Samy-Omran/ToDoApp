@@ -18,7 +18,7 @@ interface TodoDao {
     fun deleteTodo(todo: Todo)
 
     @Query("select * from Todo")
-    fun getAllTodos():List<Todo>
+    fun getAllTodos():MutableList<Todo>
 
     //select todo based on date i choose on calender
     //date is parameter of function getTodosByDate
